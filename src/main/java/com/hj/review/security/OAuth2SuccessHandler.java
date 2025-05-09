@@ -27,15 +27,24 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         // OAuth2UserService에서 저장한 principal 정보 가져오기
         CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
-        String userId = String.valueOf(oAuth2User.getUser().getId()); // 혹은 이메일 등
+        String userId = String.valueOf(oAuth2User.getUser().getId());
 
         // JWT 발급
         String token = jwtProvider.createToken(userId);
 
-        // React 앱으로 리다이렉트
-        String redirectUri = "http://localhost:3000/oauth2/redirect?token=" +
-                URLEncoder.encode(token, StandardCharsets.UTF_8);
+        // 유저가 이미 존재하는 경우: JWT 발급 후 홈으로 이동
+        if (oAuth2User.getUser().getNickname() != null) {
+            String redirectUri = "http://localhost:3000/oauth2/redirect?token=" +
+                    URLEncoder.encode(token, StandardCharsets.UTF_8);
+            response.sendRedirect(redirectUri);
+        } else {
+            // 유저가 없는 경우: 추가 정보 입력 페이지로 이동
+            String provider = oAuth2User.getUser().getProvider();
+            String providerId = oAuth2User.getUser().getProviderId();
+            String redirectUri = "http://localhost:3000/signup?provider=" + provider +
+                    "&providerId=" + providerId;
 
-        response.sendRedirect(redirectUri);
+            response.sendRedirect(redirectUri);
+        }
     }
 }
