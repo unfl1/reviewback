@@ -12,6 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000") // React 주소
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(true); // 쿠키, Authorization 헤더 허용
+                .exposedHeaders("Authorization")  // JWT 토큰을 노출하도록 설정
+                .allowCredentials(true); // withCredentials 활성화 시 true로 설정
     }
 }
