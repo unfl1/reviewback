@@ -12,9 +12,12 @@ public class UserDto {
     private String providerId;
 
     public User toEntity() {
-        return User.builder()
-                .provider(provider)
-                .providerId(providerId)
-                .build();
+        return new User(
+                null,               // id (null로 설정)
+                provider,
+                providerId,
+                null,       // nickname
+                null                // email
+        );
     }
 }
