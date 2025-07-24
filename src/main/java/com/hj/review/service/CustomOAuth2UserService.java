@@ -30,7 +30,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // providerId만 사용
         String providerId = String.valueOf(attributes.get("id"));
 
-        // DTO 생성 (email/nickname 생략)
+        // DTO 생성 (email, nickname 생략)
         UserDto userDto = UserDto.builder()
                 .provider(provider)
                 .providerId(providerId)
