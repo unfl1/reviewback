@@ -9,10 +9,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000") // React 주소
+                .allowedOrigins("http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .exposedHeaders("Authorization")  // JWT 토큰을 노출하도록 설정
+                .exposedHeaders("Authorization")  // JWT 토큰 노출하도록 임시 설정
                 .allowCredentials(true); // withCredentials 활성화 시 true로 설정
     }
 }
