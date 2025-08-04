@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board {
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
